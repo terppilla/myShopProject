@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Shop</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="{{ asset('js/modal.js') }}"></script>
 </head>
 <body>
     <header>
@@ -25,6 +26,17 @@
             </ul>
         </nav>
 </header>
+@if (session('success'))
+<div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+ @if(session('error'))
+        <div class="alert alert-error">
+            {{ session('error') }}
+        </div>   
+        @endif
 
 <main  class="container">
     @yield('content')

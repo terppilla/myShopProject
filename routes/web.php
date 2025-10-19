@@ -7,9 +7,8 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/products/create', [ProductController::class, 'index'])->name('products.create');
+Route::resource('products', ProductController::class);
 
-Route::get('/products/store', [ProductController::class, 'index'])->name('products.store');
+Route::get('/products/{id}/json', [ProductController::class, 'getProduct'])->name('products.get');
 
-
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
