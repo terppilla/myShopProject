@@ -56,7 +56,7 @@
 
 <div id="editModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+    <span class="close" onclick="closeEditModal()">&times;</span>
         <h3>Редактировать товар</h3>
         <form id="editForm" method="POST" enctype="multipart/form-data">            @csrf
             @method('PUT')

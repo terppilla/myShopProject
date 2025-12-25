@@ -17,4 +17,25 @@ function openEditModal(productId) {
         console.error('Error loding product: ', error);
         alert('Ошибка загрузки данных товара')
     })
+
+function closeEditModal() {
+    const modal = document.getElementById('editModal');
+    modal.style.display = 'none';
+        
+    document.getElementById('editForm').reset();
+}
+
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('editModal');
+    if (event.target === modal) {
+        closeEditModal();
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    const modal = document.getElementById('editModal');
+    if (event.key === 'Escape' && modal.style.display === 'block') {
+        closeEditModal();
+    }
+});
 }
