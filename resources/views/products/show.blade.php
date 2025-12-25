@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="product-detail">
+<div class="product-image-large">
+    @if($product->image)
+        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-main-image">
+    @else
+        <div class="no-image-large">Изображение отсутствует</div>
+    @endif
+</div>
     <div class="product-detail-header">
         <h1>{{ $product->name }}</h1>
         <a href="{{ route('products.index') }}" class="back-btn">← Назад к каталогу</a>
@@ -65,8 +72,7 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h3>Редактировать товар</h3>
-        <form id="editForm" method="POST">
-            @csrf
+        <form id="editForm" method="POST" enctype="multipart/form-data">            @csrf
             @method('PUT')
             <input type="hidden" name="id" id="edit_id">
             
@@ -89,9 +95,14 @@
                 <label for="edit_amount" class="form-label">Количество</label>
                 <input type="number" name="amount" id="edit_amount" min="0" class="form-input">
             </div>
+
+            <div class="form-group">
+    <label for="edit_image" class="form-label">Изображение товара</label>
+    <input type="file" name="image" id="edit_image" class="form-input" accept="image/*">
             
             <button type="submit" class="product-btn">Сохранить изменения</button>
         </form>
     </div>
+</div>
 </div>
 @endsection

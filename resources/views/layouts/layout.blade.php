@@ -11,20 +11,25 @@
     <header>
         <h1>My Shop</h1>
         <nav>
-            <ul>
-             <li>
-                <a href="{{ route('index') }}">Главная</a>
-            </li>
+    <a href="/">Главная</a>
+    <a href="{{ route('products.index') }}">Товары</a>
+    
+    @auth
+        @if(auth()->user()->role === 'admin')
+            <a href="{{ route('admin.dashboard') }}">Админ-панель</a>
+            <a href="{{ route('products.create') }}">Добавить товар</a>
+        @endif
+        
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">Выйти</button>
+        </form>
+    @else
+        <a href="{{ route('login.form') }}">Войти</a>
+        <a href="{{ route('register.form') }}">Регистрация</a>
+    @endauth
+         </nav>
 
-                <li>
-                <a href="{{ route('products.index') }}">Каталог</a>
-                </li>
-
-                <li>
-                <a href="#">Контакты</a>
-                </li>
-            </ul>
-        </nav>
 </header>
 @if (session('success'))
 <div class="alert alert-success">

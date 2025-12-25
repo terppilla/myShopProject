@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product; 
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -20,22 +21,28 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'nullable',
-            'price' => 'required|integer|min:1',
-            'amount' => 'required|integer|min:0'
-        ]);
-
-        Product::create($validated);
+            $validated = $request->validate([
+                'name' => 'required|max:255',
+                'description' => 'nullable',
+                'price' => 'required|numeric|min:1',
+                'amount' => 'required|integer|min:0',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
     
-        return redirect('/products')->with('success', 'Товар добавлен!');
-}
-     catch (\Exception $e) {
-        return redirect('/products')->with('error', 'Ошибка при добавлении товара' .$e->getMessage());
-     }
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('products', 'public');
+                $validated['image'] = $imagePath; // Будет что-то вроде: "products/abc123.jpg"
+                }
     
+            Product::create($validated);
+        
+            return redirect('/products')->with('success', 'Товар добавлен!');
+        } catch (\Exception $e) {
+            \Log::error('Store error:', ['error' => $e->getMessage()]);
+            return redirect('/products')->with('error', 'Ошибка при добавлении товара: ' . $e->getMessage());
+        }
     }
+
 
     public function update(Request $request, $id) {
         try {
@@ -53,11 +60,13 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect('/products')->with('success', 'Товар удалён!');
-
     }
 
     public function getProduct($id) {
         $product = Product::find($id);
+        if (!$product) {
+            abort(404, 'Товар не найден'); 
+        }
         return response() ->json($product);
     }
 
@@ -66,4 +75,12 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
+    public function adminDashboard() {
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            $totalProducts = Product::count();
+            return view('admin.dashboard', compact('totalProducts'));
+        }
+        return redirect('/')->with('error', 'Доступ запрещен');
+
+    }
 }

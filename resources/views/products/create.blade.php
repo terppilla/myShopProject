@@ -3,8 +3,7 @@
 @section('content')
 <div class="form-container">
     <h1>Добавление товара</h1>
-    <form action="{{ route('products.store') }}" method="POST" class="product-form">
-        @csrf
+    <form action="{{ route('products.store') }}" method="POST" class="product-form" enctype="multipart/form-data">        @csrf
         
         <div class="form-group">
             <label for="name" class="form-label">Название товара *</label>
@@ -24,6 +23,11 @@
         <div class="form-group">
             <label for="amount" class="form-label">Количество товара</label>
             <input id="amount" name="amount" min="0" type="number" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label for="image" class="form-label">Изображение товара</label>
+            <input id="image" name="image" type="file" class="form-input" accept="image/*">
         </div>
         
         <button type="submit" class="product-btn submit-btn">Добавить товар</button>

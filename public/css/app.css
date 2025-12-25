@@ -644,3 +644,134 @@ footer p {
         font-size: 2em;
     }
 }
+
+/* Стили для изображений товаров */
+.product-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-thumb:hover {
+    transform: scale(1.05);
+}
+
+.no-image {
+    color: #6c757d;
+    font-size: 0.9em;
+    padding: 20px;
+    text-align: center;
+}
+
+.product-image-large {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.no-image-large {
+    color: #6c757d;
+    font-size: 1.1em;
+    padding: 40px;
+    text-align: center;
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    width: 100%;
+}
+
+/* ===== СТИЛИ ДЛЯ ИЗОБРАЖЕНИЙ ТОВАРОВ ===== */
+
+/* Контейнер для изображения в карточке товара */
+.product-image {
+    width: 100%;
+    height: 200px; /* Фиксированная высота */
+    overflow: hidden; /* Обрезаем выходящее за границы */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Само изображение */
+.product-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Важно! Сохраняет пропорции и заполняет контейнер */
+    transition: transform 0.3s ease;
+}
+
+.product-thumb:hover {
+    transform: scale(1.05); /* Легкое увеличение при наведении */
+}
+
+/* Заглушка если нет изображения */
+.no-image {
+    color: #6c757d;
+    font-size: 0.9em;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Для страницы товара (show.blade.php) */
+.product-image-large {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Показывает все изображение */
+}
+
+.no-image-large {
+    color: #6c757d;
+    font-size: 1.1em;
+    padding: 40px;
+    text-align: center;
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    width: 100%;
+}
